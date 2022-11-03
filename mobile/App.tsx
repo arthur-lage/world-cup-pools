@@ -12,6 +12,10 @@ import { THEME } from "./src/styles/theme";
 import { Loading } from "./src/components/Loading";
 
 import { SignIn } from "./src/screens/SignIn";
+import { AuthProvider } from "./src/contexts/AuthContext";
+import { NewPool } from "./src/screens/NewPool";
+import { MyPools } from "./src/screens/MyPools";
+import { FindPoolByCode } from "./src/screens/FindPoolByCode";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,9 +32,11 @@ export default function App() {
         translucent
       />
 
-      <Center bgColor="gray.900" flex={1}>
-        {!fontsLoaded ? <Loading /> : <SignIn />}
-      </Center>
+      <AuthProvider>
+        <Center bgColor="gray.900" flex={1}>
+          {!fontsLoaded ? <Loading /> : <FindPoolByCode />}
+        </Center>
+      </AuthProvider>
     </NativeBaseProvider>
   );
 }

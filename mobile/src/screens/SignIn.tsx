@@ -1,24 +1,21 @@
-import { Button, Center, Icon, Text, VStack } from "native-base";
+import { Center, Icon, Text, VStack } from "native-base";
+
+import { Fontisto } from "@expo/vector-icons";
 
 import Logo from "../assets/logo.svg";
+import { Button } from "../components/Button";
+import { useAuth } from '../hooks/useAuth';
 
 export function SignIn() {
+  const { signIn } = useAuth()
+  
   return (
     <Center flex={1}>
-      {/* <Logo /> */}
+      <Logo width={212} height={40} />
 
-      <VStack alignItems={"center"} justifyContent="center" marginTop={12}>
-        <Button
-          width={320}
-          paddingY={18}
-          borderRadius={4}
-          bgColor="red.500"
-          textAlign="center"
-        >
-          <Text fontSize="sm" fontFamily="heading" color="white">
-            ENTRAR COM GOOGLE
-          </Text>
-        </Button>
+      <VStack alignItems={"center"} justifyContent="center" marginTop={16}>
+        <Button onPress={signIn} type="PRIMARY" title={"ENTRAR COM GOOGLE"} leftIcon={<Icon as={Fontisto} name="google" size="md" color="white" />} />
+        
         <Text
           width={280}
           lineHeight={22.4}
