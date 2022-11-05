@@ -4,18 +4,26 @@ import { Fontisto } from "@expo/vector-icons";
 
 import Logo from "../assets/logo.svg";
 import { Button } from "../components/Button";
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from "../hooks/useAuth";
 
 export function SignIn() {
-  const { signIn } = useAuth()
-  
+  const { signIn, isUserLoading } = useAuth();
+
   return (
-    <Center flex={1}>
+    <Center background="gray.900" flex={1}>
       <Logo width={212} height={40} />
 
       <VStack alignItems={"center"} justifyContent="center" marginTop={16}>
-        <Button onPress={signIn} type="PRIMARY" title={"ENTRAR COM GOOGLE"} leftIcon={<Icon as={Fontisto} name="google" size="md" color="white" />} />
-        
+        <Button
+          isLoading={isUserLoading}
+          onPress={signIn}
+          type="SECONDARY"
+          title={"ENTRAR COM GOOGLE"}
+          leftIcon={
+            <Icon as={Fontisto} name="google" size="md" color="white" />
+          }
+        />
+
         <Text
           width={280}
           lineHeight={22.4}

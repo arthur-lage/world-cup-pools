@@ -18,7 +18,7 @@ export function Button ({ title, type = "PRIMARY", ...rest }: ButtonProps) {
           textAlign="center"
           _loading={{
             _spinner: {
-              color: "black"
+              color: type === "PRIMARY" ? "black" : "white"
             }
           }}
           _pressed={{

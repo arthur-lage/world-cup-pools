@@ -7,7 +7,7 @@ import { Header } from "../components/Header";
 
 export function NewPool() {
   return (
-    <View flex={1}>
+    <View background="gray.900" flex={1}>
       <Header text={"Criar novo bolão"} />
 
       <VStack px={8} alignItems="center">

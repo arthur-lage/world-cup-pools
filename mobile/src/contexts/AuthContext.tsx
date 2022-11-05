@@ -6,6 +6,7 @@ import * as WebBrowser from "expo-web-browser";
 
 // @ts-ignore
 import { CLIENT_ID } from "@env";
+import { api } from "../services/api";
 
 export interface User {
   name: string;
@@ -14,7 +15,7 @@ export interface User {
 
 export interface AuthContextProps {
   user: User | null;
-  isUserLoading: boolean
+  isUserLoading: boolean;
   signIn: () => Promise<void>;
 }
 
@@ -28,7 +29,7 @@ const redirectUri = "https://auth.expo.io/@arthur-lage/nlw-copa";
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
-  const [isUserLoading, setIsUserLoading] = useState(false)
+  const [isUserLoading, setIsUserLoading] = useState(false);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     clientId: String(CLIENT_ID),
@@ -38,26 +39,44 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function signIn() {
     try {
-      setIsUserLoading(true)
-      
-      await promptAsync()
+      setIsUserLoading(true);
+
+      await promptAsync();
     } catch (error) {
-      console.error(error)
-      throw error
+      console.error(error);
+      throw error;
     } finally {
-      setIsUserLoading(false)
+      setIsUserLoading(false);
     }
   }
 
-  async function signInWithGoogle (access_token: string) {
-    console.log(access_token)
+  async function signInWithGoogle(access_token: string) {
+    try {
+      setIsUserLoading(true);
+
+      const tokenResponse = await api.post("/users", {
+        access_token,
+      });
+
+      api.defaults.headers.common["Authorization"] =
+        "Bearer " + tokenResponse.data.token;
+
+      const userInfo = await api.get("/me");
+
+      setUser(userInfo.data.user);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      setIsUserLoading(false);
+    }
   }
 
   useEffect(() => {
-    if(response?.type === "success" && response.authentication?.accessToken) {
-      signInWithGoogle(response.authentication.accessToken)
+    if (response?.type === "success" && response.authentication?.accessToken) {
+      signInWithGoogle(response.authentication.accessToken);
     }
-  }, [response])
+  }, [response]);
 
   const value = {
     user,

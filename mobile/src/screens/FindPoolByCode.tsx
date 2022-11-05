@@ -5,7 +5,7 @@ import { Input } from "../components/Input";
 
 export function FindPoolByCode() {
   return (
-    <View flex={1}>
+    <View background="gray.900" flex={1}>
       <Header canGoBack text="Buscar por código" />
 
       <VStack px="8">

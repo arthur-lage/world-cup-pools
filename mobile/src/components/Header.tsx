@@ -1,5 +1,6 @@
 import { View, Text, Button, Icon } from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 interface HeaderProps {
   text: string;
@@ -7,6 +8,8 @@ interface HeaderProps {
 }
 
 export function Header({ text, canGoBack = false }: HeaderProps) {
+  const { navigate } = useNavigation()
+  
   return (
     <View
       marginBottom={10}
@@ -21,6 +24,7 @@ export function Header({ text, canGoBack = false }: HeaderProps) {
         <Button
           width={6}
           height={6}
+          onPress={() => navigate("my-pools")}
           _pressed={{ bg: "transparent" }}
           bg={"transparent"}
           marginLeft={5}
