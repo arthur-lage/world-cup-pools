@@ -34,7 +34,7 @@ export default function App() {
 
       <AuthProvider>
         <Center bgColor="gray.900" flex={1}>
-          {!fontsLoaded ? <Loading /> : <FindPoolByCode />}
+          {!fontsLoaded ? <Loading /> : <SignIn />}
         </Center>
       </AuthProvider>
     </NativeBaseProvider>

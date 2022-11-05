@@ -20,8 +20,8 @@ model Pool {
   code    String  @unique
   ownerId String?
 
-  createdAt   DateTime      @default(now())
-  owner       User?         @relation(fields: [ownerId], references: [id])
+  createdAt    DateTime      @default(now())
+  owner        User?         @relation(fields: [ownerId], references: [id])
   participants Participant[]
 }
 
@@ -30,6 +30,7 @@ model User {
 
   name      String
   email     String  @unique
+  googleId  String? @unique
   avatarUrl String?
 
   poolsUserIsParticipatingIn Participant[]
